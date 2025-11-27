@@ -1,0 +1,100 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <h1 class="text-3xl sm:text-4xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+    Dashboard
+  </h1>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+    <div class="bg-white p-6 rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-1">
+      <h2 class="text-gray-500 font-semibold mb-2">Total Links</h2>
+      <p class="text-3xl font-bold text-indigo-600"><%= @total_links %></p>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-1">
+      <h2 class="text-gray-500 font-semibold mb-2">Total Clicks</h2>
+      <p class="text-3xl font-bold text-purple-600"><%= @total_clicks %></p>
+    </div>
+    <div class="bg-white p-6 rounded-3xl shadow-2xl hover:shadow-3xl transition duration-300 transform hover:-translate-y-1">
+      <h2 class="text-gray-500 font-semibold mb-2">Earnings</h2>
+      <p class="text-3xl font-bold text-pink-600">$<%= sprintf("%.2f", @total_earnings) %></p>
+    </div>
+  </div>
+
+  <!-- Recent Links Table -->
+  <div class="bg-white p-6 rounded-3xl shadow-2xl mb-6 overflow-x-auto">
+    <h2 class="text-xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+      Recent Links
+    </h2>
+    <table class="min-w-full border border-gray-200 rounded-lg">
+      <thead class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 text-white">
+        <tr>
+          <th class="px-4 py-2 border-b">Short URL</th>
+          <th class="px-4 py-2 border-b">Original URL</th>
+          <th class="px-4 py-2 border-b">Clicks</th>
+          <th class="px-4 py-2 border-b">Created At</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200">
+        <% @recent_links.each do |link| %>
+          <tr class="hover:bg-gray-50 transition duration-200">
+            <td class="px-4 py-2 border-b text-indigo-600 font-medium">
+              <%= link_to short_url(link.short_code), short_url(link.short_code), target: "_blank" %>
+            </td>
+            <td class="px-4 py-2 border-b"><%= link.original_url.truncate(50) %></td>
+            <td class="px-4 py-2 border-b"><%= link.clicks_count %></td>
+            <td class="px-4 py-2 border-b"><%= link.created_at.strftime("%b %d, %Y") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Clicks Chart -->
+  <div class="bg-white p-6 rounded-3xl shadow-2xl">
+    <h2 class="text-xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+      Clicks Last 7 Days
+    </h2>
+    <canvas id="clicksChart" class="w-full h-64"></canvas>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('clicksChart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(99,102,241,0.4)'); // Indigo
+  gradient.addColorStop(1, 'rgba(236,72,153,0.1)');  // Pink
+
+  const clicksData = {
+    labels: <%= @clicks_per_day.keys.map{|d| d.strftime("%b %d")}.to_json.html_safe %>,
+    datasets: [{
+      label: 'Clicks',
+      data: <%= @clicks_per_day.values.to_json.html_safe %>,
+      fill: true,
+      backgroundColor: gradient,
+      borderColor: 'rgba(99,102,241,1)',
+      tension: 0.4,
+      pointBackgroundColor: 'rgba(236,72,153,1)',
+      pointHoverRadius: 6
+    }]
+  };
+
+  const clicksChart = new Chart(ctx, {
+    type: 'line',
+    data: clicksData,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      interaction: {
+        mode: 'nearest',
+        intersect: false
+      },
+      scales: {
+        y: { beginAtZero: true, ticks: { stepSize: 1 } },
+        x: { ticks: { color: '#4B5563' } }
+      }
+    }
+  });
+</script>
