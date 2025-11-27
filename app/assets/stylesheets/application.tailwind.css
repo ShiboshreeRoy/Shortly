@@ -1,1 +1,7 @@
 @import "tailwindcss";
+
+.lily-script-one-regular {
+  font-family: "Lily Script One", system-ui;
+  font-weight: 600;
+  font-style: normal;
+}

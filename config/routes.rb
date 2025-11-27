@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "pages/developer"
+  get "pages/pricing"
+  get "pages/about"
+  devise_for :views
   get "dashboard/index"
   
   devise_for :users

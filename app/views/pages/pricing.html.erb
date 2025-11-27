@@ -1,0 +1,54 @@
+<div class="bg-gray-50 min-h-screen py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-5xl font-extrabold text-gray-900 mb-6">Pricing Plans</h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+      Choose the plan that fits your needs. Start for free or upgrade for advanced features and ad-free experience.
+    </p>
+
+    <!-- Pricing Cards -->
+    <div class="grid gap-8 md:grid-cols-3">
+      
+      <!-- Free Plan -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+        <h2 class="text-2xl font-bold text-indigo-600 mb-4">Free</h2>
+        <p class="text-gray-600 mb-4">Basic URL shortening with ads</p>
+        <p class="text-3xl font-extrabold mb-6">$0<span class="text-base font-normal">/month</span></p>
+        <ul class="text-gray-700 mb-6 space-y-2 text-left">
+          <li>Unlimited URLs</li>
+          <li>Basic Analytics</li>
+          <li>Ads Enabled</li>
+        </ul>
+        <a href="<%= new_user_registration_path %>" class="block w-full px-4 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">Get Started</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-indigo-600 transform scale-105 hover:shadow-2xl transition duration-300">
+        <h2 class="text-2xl font-bold text-indigo-600 mb-4">Pro</h2>
+        <p class="text-gray-600 mb-4">Advanced features and ad-free experience</p>
+        <p class="text-3xl font-extrabold mb-6">$9.99<span class="text-base font-normal">/month</span></p>
+        <ul class="text-gray-700 mb-6 space-y-2 text-left">
+          <li>Custom Short Links</li>
+          <li>Detailed Analytics</li>
+          <li>No Ads</li>
+          <li>Priority Support</li>
+        </ul>
+        <a href="<%= new_user_registration_path %>" class="block w-full px-4 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">Upgrade Now</a>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+        <h2 class="text-2xl font-bold text-indigo-600 mb-4">Enterprise</h2>
+        <p class="text-gray-600 mb-4">For businesses & high-volume usage</p>
+        <p class="text-3xl font-extrabold mb-6">Contact Us</p>
+        <ul class="text-gray-700 mb-6 space-y-2 text-left">
+          <li>Unlimited Users</li>
+          <li>Custom Branding</li>
+          <li>Dedicated Support</li>
+          <li>API Access</li>
+        </ul>
+        <a href="<%= root_path %>" class="block w-full px-4 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition duration-300">Contact Sales</a>
+      </div>
+
+    </div>
+  </div>
+</div>

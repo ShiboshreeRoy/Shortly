@@ -3,19 +3,35 @@
     <div class="flex justify-between h-16 items-center">
       <!-- Logo -->
       <div class="flex-shrink-0 flex items-center">
-        <a href="<%= root_path %>" class="text-white text-2xl sm:text-3xl font-extrabold tracking-wide">Shortly</a>
+        <a href="<%= root_path %>" class=" lily-script-one-regular text-white text-2xl sm:text-3xl font-extrabold tracking-wide">Shortly</a>
       </div>
 
       <!-- Desktop Menu -->
-      <div class="hidden md:flex md:items-center space-x-8">
-      <% if user_signed_in? %>
-        <%= link_to "Dashboard",dashboard_index_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-        <%= link_to "Shorten URL", new_short_url_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-         <%= link_to "Sign Out",destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: "Are you Sure !"}, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-         <% else %>
-         <%= link_to "Sign In", new_user_session_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-        <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-         <% end %>
+      <div class="hidden md:flex md:items-center space-x-6">
+        <% if user_signed_in? %>
+          <%= link_to "Dashboard", dashboard_index_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "Shorten URL", new_short_url_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+
+          <!-- Profile Dropdown -->
+          <div class="relative" x-data="{ open: false }">
+            <button id="profile-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-indigo-600 font-bold uppercase focus:outline-none shadow-lg transition duration-300" onclick="document.getElementById('profile-menu').classList.toggle('hidden')">
+              <%= current_user.email[0].upcase %>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="profile-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden">
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "block px-4 py-2 text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition duration-300" %>
+              <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "block px-4 py-2 text-gray-700 hover:bg-indigo-100 hover:text-indigo-700 transition duration-300" %>
+              </div>
+          </div>
+
+        <% else %>
+          <%= link_to "Developer", pages_developer_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "Pricing", pages_pricing_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "About Us", pages_about_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "Sign In", new_user_session_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <% end %>
       </div>
 
       <!-- Mobile Menu Button -->
@@ -34,14 +50,18 @@
   <div id="mobile-menu" class="md:hidden hidden">
     <div class="px-4 pt-4 pb-6 space-y-2 bg-gradient-to-b from-indigo-600 via-purple-600 to-pink-500 rounded-b-xl shadow-lg">
       <% if user_signed_in? %>
-    <%= link_to "Dashboard", dashboard_index_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-      <%= link_to "Shorten URL", new_short_url_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-      <%= link_to "Sign Out",destroy_user_session_path, data: {turbo_method: :delete, turbo_confirm: "Are you Sure !"}, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-      <% else %>  
-      <%= link_to "Sign In", new_user_session_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-        <%= link_to "Sign Up", new_user_registration_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
-         <% end %>
-      </div>
+        <%= link_to "Dashboard", dashboard_index_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Shorten URL", new_short_url_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Sign Out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+      <% else %>
+        <%= link_to "Developer", pages_developer_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "Pricing", pages_pricing_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+          <%= link_to "About Us", pages_about_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Sign In", new_user_session_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+      <% end %>
+    </div>
   </div>
 
   <script>
@@ -50,6 +70,15 @@
 
     menuButton.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close profile dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      const profileMenu = document.getElementById('profile-menu');
+      const profileButton = document.getElementById('profile-button');
+      if (!profileMenu.contains(e.target) && !profileButton.contains(e.target)) {
+        profileMenu.classList.add('hidden');
+      }
     });
   </script>
 </nav>
