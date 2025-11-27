@@ -57,3 +57,8 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "devise", "~> 4.9"
+gem "ahoy_matey", "~> 5.4"
+gem "stripe", "~> 18.0"
+gem "friendly_id", "~> 5.5"
