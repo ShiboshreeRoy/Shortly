@@ -1,0 +1,45 @@
+<nav class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 shadow-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center">
+      <!-- Logo -->
+      <div class="flex-shrink-0 flex items-center">
+        <a href="<%= root_path %>" class="text-white text-2xl sm:text-3xl font-extrabold tracking-wide">Shortly</a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex md:items-center space-x-8">
+        <%= link_to "Dashboard", short_urls_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Shorten URL", new_short_url_path, class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+        <%= link_to "Analytics", "#", class: "text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex md:hidden items-center">
+        <button id="mobile-menu-button" class="text-white hover:text-yellow-300 focus:outline-none">
+          <svg class="h-7 w-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden">
+    <div class="px-4 pt-4 pb-6 space-y-2 bg-gradient-to-b from-indigo-600 via-purple-600 to-pink-500 rounded-b-xl shadow-lg">
+      <%= link_to "Dashboard", short_urls_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+      <%= link_to "Shorten URL", new_short_url_path, class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+      <%= link_to "Analytics", "#", class: "block px-3 py-2 rounded-md text-white hover:text-yellow-300 font-semibold transition duration-300" %>
+    </div>
+  </div>
+
+  <script>
+    const menuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+</nav>

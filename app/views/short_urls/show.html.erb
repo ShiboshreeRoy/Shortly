@@ -1,2 +1,50 @@
-<h1>ShortUrls#show</h1>
-<p>Find me in app/views/short_urls/show.html.erb</p>
+<div class="max-w-xl mx-auto mt-10 bg-white shadow-2xl rounded-3xl p-8 sm:p-12">
+  <!-- Header with gradient text -->
+  <h1 class="text-3xl sm:text-4xl font-extrabold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500">
+    Short URL Details
+  </h1>
+
+  <div class="space-y-4 text-gray-700">
+    <p>
+      <span class="font-semibold">Original URL:</span>
+      <span class="text-indigo-600 break-words"><%= @short_url.original_url %></span>
+    </p>
+
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between">
+      <div class="flex-1 mb-2 sm:mb-0">
+        <span class="font-semibold">Short URL:</span>
+        <%= link_to short_url(@short_url.short_code), short_url(@short_url.short_code), target: "_blank", class: "text-indigo-600 hover:text-indigo-800 underline break-words" %>
+      </div>
+      <button id="copy-button" class="ml-0 sm:ml-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-pink-500 hover:via-purple-600 hover:to-indigo-600 text-white px-4 py-2 rounded-full font-semibold transition duration-300 shadow-lg">
+        Copy
+      </button>
+    </div>
+
+    <p>
+      <span class="font-semibold">Clicks:</span>
+      <span class="font-medium"><%= @short_url.clicks_count %></span>
+    </p>
+
+    <p>
+      <span class="font-semibold">Expires At:</span>
+      <span class="font-medium"><%= @short_url.expires_at ? @short_url.expires_at.strftime("%d %b %Y") : "Never" %></span>
+    </p>
+  </div>
+
+  <div class="mt-8 text-center">
+    <%= link_to "Back", short_urls_path, class: "inline-block bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-500 hover:from-pink-500 hover:via-purple-600 hover:to-indigo-600 text-white font-semibold px-6 py-3 rounded-full transition duration-300 shadow-lg" %>
+  </div>
+</div>
+
+<script>
+  const copyButton = document.getElementById('copy-button');
+  copyButton.addEventListener('click', () => {
+    const shortUrl = "<%= short_url(@short_url.short_code) %>";
+    navigator.clipboard.writeText(shortUrl).then(() => {
+      copyButton.innerText = "Copied!";
+      setTimeout(() => { copyButton.innerText = "Copy"; }, 2000);
+    }).catch(() => {
+      alert("Failed to copy URL");
+    });
+  });
+</script>

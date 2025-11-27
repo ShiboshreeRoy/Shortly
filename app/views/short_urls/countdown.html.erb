@@ -1,17 +1,29 @@
-<h1>Redirecting in <span id="countdown">5</span> seconds...</h1>
-<div id="ad">
-  <!-- Example ad -->
-  <p>Sponsored Content Here</p>
-</div>
+<body class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center">
+  
+  <div class="bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-10 max-w-lg text-center mx-4">
+    <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-6">
+      Redirecting in <span id="countdown" class="text-indigo-600">5</span> seconds...
+    </h1>
 
-<script>
-let countdown = 5;
-let timer = setInterval(() => {
-  countdown--;
-  document.getElementById("countdown").innerText = countdown;
-  if(countdown <= 0) {
-    clearInterval(timer);
-    window.location = "<%= @short_url.original_url %>";
-  }
-}, 1000);
-</script>
+    <div id="ad" class="border-2 border-dashed border-gray-300 rounded-xl p-6 bg-gray-50 hover:bg-gray-100 transition duration-300">
+      <p class="text-gray-600 text-lg font-medium">Sponsored Content Here</p>
+    </div>
+
+    <div class="mt-6">
+      <p class="text-gray-500 text-sm sm:text-base">You will be redirected automatically. If not, <a href="<%= @short_url.original_url %>" class="text-indigo-600 hover:text-indigo-800 font-semibold">click here</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    let countdown = 5;
+    let timer = setInterval(() => {
+      countdown--;
+      document.getElementById("countdown").innerText = countdown;
+      if(countdown <= 0) {
+        clearInterval(timer);
+        window.location = "<%= @short_url.original_url %>";
+      }
+    }, 1000);
+  </script>
+
+</body>
