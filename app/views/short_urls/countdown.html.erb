@@ -1,0 +1,17 @@
+<h1>Redirecting in <span id="countdown">5</span> seconds...</h1>
+<div id="ad">
+  <!-- Example ad -->
+  <p>Sponsored Content Here</p>
+</div>
+
+<script>
+let countdown = 5;
+let timer = setInterval(() => {
+  countdown--;
+  document.getElementById("countdown").innerText = countdown;
+  if(countdown <= 0) {
+    clearInterval(timer);
+    window.location = "<%= @short_url.original_url %>";
+  }
+}, 1000);
+</script>
