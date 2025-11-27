@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
+  
   devise_for :users
+  root "short_urls#index"
+
+  resources :short_urls, only: [:index, :new, :create, :show] do
+    member do
+      get :countdown
+    end
+  end
+
+  # Redirect short code
+  get '/:code', to: 'short_urls#redirect', as: :short
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
